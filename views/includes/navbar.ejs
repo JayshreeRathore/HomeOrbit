@@ -1,0 +1,142 @@
+<style>
+  .search-btn{
+    background-color: #fe424d;
+    color: #fff;
+    width: 10rem;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .search-btn:hover{
+    background-color: #fe424d;
+    color: #fff;
+  }
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .search-inp{
+    border-radius: 25px;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    font-size: 0.90rem;
+  }
+  
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-inp {
+    width: 100%; /* Full-width search input on small screens */
+  }
+
+  .search-btn {
+    width: auto; /* Adjust width to fit content on small screens */
+  }
+}
+/* Default CSS for main content */
+.main-content {
+    margin-top: 0;
+}
+
+/* Default CSS for main content */
+.main-content {
+    margin-top: 0;
+    transition: margin-top 0.3s ease;
+}
+.navbar-expanded .navbar, 
+.navbar-expanded .navbar-nav .nav-link {
+    background-color: #fff; /* White background for navbar and nav links */
+    color: #000; /* Ensure text is visible against the white background */
+}
+
+/* Add a white background behind the search form */
+.navbar-expanded .search-container {
+    background-color: #fff; /* White background for the container */
+    padding: 0.5rem; /* Optional: add some padding to create space */
+    /* Match the border radius of the input and button */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-inp {
+    width: 100%; /* Full-width search input on small screens */
+  }
+
+  .search-btn {
+    width: auto; /* Adjust width to fit content on small screens */
+  }
+}
+
+.main-content {
+    margin-top: 0; /* Default margin */
+    transition: margin-top 0.3s ease;
+}
+
+</style>
+
+<nav class="navbar navbar-expand-md navbar-light  border-bottom sticky-top navbar-expanded">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          
+          <a class="nav-link " href="/listings">Explore</a>
+        </div>
+
+
+        <div class="navbar-nav ms-auto search-container" >
+          <form class="d-flex" role="search" action="/search" method="get">
+            <input class="form-control me-2 search-inp" type="search" name="searchTerm"  placeholder="Search destinations" aria-label="Search">
+            
+            <button class="btn search-btn" type="submit"> <i class="fa-solid fa-magnifying-glass"></i>
+              Search</button>
+          </form>
+        </div>
+
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/listings/new">Create your home</a>
+          <% if(!currUser) { %>
+          <a class="nav-link " href="/signup"><b>SignUp</b></a>
+          <a class="nav-link" href="/login"><b>LogIn</b></a>
+          <% } %>
+          <% if(currUser) { %>
+          <a class="nav-link" href="/logout"><b>LogOut</b></a>
+          <% } %>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+  <script>
+    
+document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggle = document.querySelector('.navbar-toggler');
+    const mainContent = document.querySelector('.main-content');
+    const navbar = document.querySelector('.navbar');
+    const body = document.body;
+
+    if (navbarToggle && mainContent && navbar) {
+        navbarToggle.addEventListener('click', function() {
+            if (body.classList.contains('navbar-expanded')) {
+                // Reset the margin and remove the class
+                body.classList.remove('navbar-expanded');
+                mainContent.style.marginTop = '0';
+            } else {
+                // Add the class to expand the navbar
+                body.classList.add('navbar-expanded');
+
+                // Ensure the main content moves down by the full height of the expanded navbar
+                setTimeout(() => {
+                    const expandedNavbarHeight = navbar.scrollHeight; // Get the full height of the expanded navbar
+                    mainContent.style.marginTop = `180px`; // Move the content down by that height
+                }, 300); // Wait for the navbar to fully expand before calculating height
+            }
+        });
+    } else {
+        console.error('Navbar toggle button, main content, or navbar not found.');
+    }
+});
+</script>
