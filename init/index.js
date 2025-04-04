@@ -4,21 +4,17 @@ require('dotenv').config();
 const { data: sampleListings } = require('./data.js'); // Import data
 
 //Create a connection to the MySQL database
-// const connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root', // Replace with your MySQL username
-//     database: 'Wanderlust', // Replace with your database name
-//     password: 'jaya', // Replace with your MySQL password
-//     connectTimeout : 30000 ,
-// });
+
 
 const connection = mysql.createConnection({
-    host: 'sql12.freesqldatabase.com',
-    user: 'sql12726600',
-    password: 'IGcskIfJLZ',
-    database: 'sql12726600',
-    connectTimeout: 30000
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_DATABASE,
+    connectTimeout: 30000,
 });
+
+
 
 // Connect to the database
 connection.connect((err) => {
